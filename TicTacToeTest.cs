@@ -5,20 +5,39 @@ namespace TicTacToe
 {
     public class TicTacToeTest
     {
-        private Game _game = new Game();
+        
 
         [Fact]
-        public void PlayerOnePlaysFirst()
+        public void PlayerOnePlaysFirstMovement()
         {
-            var expectedValue = _game.GetPlayerMovement(1, 1);
-            Assert.Equal(expectedValue, new char[3,3] {{' ', ' ', ' '} , {' ', 'X', ' '} , {' ', ' ', ' '}});
+            var _game = new Game(new char[3, 3] {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}});
+            var expectedValue = new char[3, 3] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } };
+
+            var actualValue = _game.GetPlayerMovement(1, 1, 'X');
+            
+            Assert.Equal(expectedValue, actualValue);
         }
 
         [Fact]
-        public void PlayerTwoPlaysSecond()
+        public void PlayerTwoPlaysSecondMovement()
         {
-            var expectedValue = _game.GetPlayerMovement(0, 0);
-            Assert.Equal(expectedValue, new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var _game = new Game(new char[3, 3] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var expectedValue = new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } };
+
+            var actualValue = _game.GetPlayerMovement(0, 0, 'O');
+            
+            Assert.Equal(expectedValue, actualValue);
+        }
+
+        [Fact]
+        public void PlayerOnePlaysThirdMovement()
+        {
+            var _game = new Game(new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var expectedValue = new char[3, 3] {{'O', ' ', 'X'}, {' ', 'X', ' '}, {' ', ' ', ' '}};
+
+            var actualValue = _game.GetPlayerMovement(0, 2, 'X');
+            
+            Assert.Equal(expectedValue, actualValue);
         }
     }
 }

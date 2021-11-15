@@ -2,18 +2,16 @@ namespace TicTacToe
 {
     public class Game
     {
-        private char[,] Board;
-        public Game()
+        public char[,] Board { get; set; }
+
+        public Game(char[,] board)
         {
-            Board = new char[3, 3] {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+            Board = board;
         }
 
-        public char[,] GetPlayerMovement(short x, short y)
+        public char[,] GetPlayerMovement(short x, short y, char playerSymbol)
         {
-            if (x == 1 && y == 1)
-                Board = new char[3, 3] {{' ', ' ', ' '}, {' ', 'X', ' '}, {' ', ' ', ' '}};
-            else
-                Board = new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } };
+            Board[x, y] = playerSymbol;
             return Board;
         }
     }
