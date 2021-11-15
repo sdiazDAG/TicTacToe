@@ -1,3 +1,5 @@
+using System;
+
 namespace TicTacToe
 {
     public class Game
@@ -11,8 +13,12 @@ namespace TicTacToe
 
         public char[,] GetPlayerMovement(short x, short y, char playerSymbol)
         {
-            Board[x, y] = playerSymbol;
-            return Board;
+            if (Board[x, y] == ' ')
+            {
+                Board[x, y] = playerSymbol;
+                return Board;
+            }
+            throw new NotFreePositionException();
         }
     }
 }

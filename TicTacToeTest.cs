@@ -39,5 +39,15 @@ namespace TicTacToe
             
             Assert.Equal(expectedValue, actualValue);
         }
+
+        [Fact]
+        public void PlayerTwoPlaysFourthMovementInNotFreePosition()
+        {
+            var _game = new Game(new char[3, 3] { { 'O', ' ', 'X' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+
+            Action action = () => _game.GetPlayerMovement(0, 2, 'O');
+
+            Assert.Throws<NotFreePositionException>(action);
+        }
     }
 }
