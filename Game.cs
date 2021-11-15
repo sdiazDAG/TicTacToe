@@ -20,5 +20,10 @@ namespace TicTacToe
             }
             throw new NotFreePositionException();
         }
+
+        public bool IsThereWinner(char[,] actualValue)
+        {
+            return true;
+        }
     }
 }

@@ -49,5 +49,17 @@ namespace TicTacToe
 
             Assert.Throws<NotFreePositionException>(action);
         }
+
+        [Fact]
+        public void PlayerOneWinGame()
+        {
+            var _game = new Game(new char[3, 3] { { 'O', ' ', 'X' }, { 'O', 'X', ' ' }, { ' ', ' ', ' ' } });
+
+            var actualValue = _game.SetPlayerMovement(new Position(2, 0), 'X');
+
+            var isWinner = _game.IsThereWinner(actualValue);
+
+            Assert.True(isWinner);
+        }
     }
 }
