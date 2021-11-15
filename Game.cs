@@ -11,7 +11,7 @@ namespace TicTacToe
             Board = board;
         }
 
-        public char[,] GetPlayerMovement(Position position, char playerSymbol)
+        public char[,] SetPlayerMovement(Position position, char playerSymbol)
         {
             if (Board[position.X, position.Y] == ' ')
             {
