@@ -22,69 +22,15 @@ namespace TicTacToe
             throw new NotFreePositionException();
         }
 
-        public bool IsThereWinner(Board actualValue)
+        public bool IsThereWinner()
         {
-            if (BoardRowCompleted(actualValue)) return true;
+            if (GameBoard.BoardRowCompleted()) return true;
 
-            if (BoardColCompleted(actualValue)) return true;
+            if (GameBoard.BoardColCompleted()) return true;
 
-            if (BoardDiagonalLeftToRightCompleted(actualValue)) return true;
+            if (GameBoard.BoardDiagonalLeftToRightCompleted()) return true;
 
-            if (BoardDiagonalRightToLeftCompleted(actualValue)) return true;
-
-            return false;
-        }
-
-        private static bool BoardDiagonalRightToLeftCompleted(Board actualValue)
-        {
-            if (actualValue.Cells[0, 2] != ' ')
-            {
-                if (actualValue.Cells[0, 2] == actualValue.Cells[1, 1] &&
-                    actualValue.Cells[1, 1] == actualValue.Cells[2, 0])
-                    return true;
-            }
-
-            return false;
-        }
-
-        private static bool BoardDiagonalLeftToRightCompleted(Board actualValue)
-        {
-            if (actualValue.Cells[0, 0] != ' ')
-            {
-                if (actualValue.Cells[0, 0] == actualValue.Cells[1, 1] &&
-                    actualValue.Cells[1, 1] == actualValue.Cells[2, 2])
-                    return true;
-            }
-
-            return false;
-        }
-
-        private static bool BoardColCompleted(Board actualValue)
-        {
-            for (int col = 0; col < 3; col++)
-            {
-                if (actualValue.Cells[0, col] != ' ')
-                {
-                    if (actualValue.Cells[0, col] == actualValue.Cells[1, col] &&
-                        actualValue.Cells[1, col] == actualValue.Cells[2, col])
-                        return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool BoardRowCompleted(Board actualValue)
-        {
-            for (int row = 0; row < 3; row++)
-            {
-                if (actualValue.Cells[row, 0] != ' ')
-                {
-                    if (actualValue.Cells[row, 0] == actualValue.Cells[row, 1] &&
-                        actualValue.Cells[row, 1] == actualValue.Cells[row, 2])
-                        return true;
-                }
-            }
+            if (GameBoard.BoardDiagonalRightToLeftCompleted()) return true;
 
             return false;
         }

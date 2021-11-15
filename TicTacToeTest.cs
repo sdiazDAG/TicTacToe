@@ -60,7 +60,7 @@ namespace TicTacToe
 
             var actualValue = _game.SetPlayerMovement(new Position(2, 0), 'X');
 
-            var isWinner = _game.IsThereWinner(actualValue);
+            var isWinner = _game.IsThereWinner();
 
             Assert.True(isWinner);
         }
@@ -73,7 +73,7 @@ namespace TicTacToe
 
             var actualValue = _game.SetPlayerMovement(new Position(2, 0), 'O');
 
-            var isWinner = _game.IsThereWinner(actualValue);
+            var isWinner = _game.IsThereWinner();
 
             Assert.True(isWinner);
         }
