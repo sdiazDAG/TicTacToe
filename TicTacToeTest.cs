@@ -5,7 +5,7 @@ namespace TicTacToe
 {
     public class TicTacToeTest
     {
-        private readonly Game _game = new Game();
+        private Game _game = new Game();
 
         [Fact]
         public void PlayerOnePlaysFirst()
