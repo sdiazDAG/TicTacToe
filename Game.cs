@@ -4,24 +4,24 @@ namespace TicTacToe
 {
     public class Game
     {
-        private char[,] Board { get; set; }
+        private Board GameBoard { get; set; }
 
-        public Game(char[,] board)
+        public Game(Board gameBoard)
         {
-            Board = board;
+            GameBoard = gameBoard;
         }
 
-        public char[,] SetPlayerMovement(Position position, char playerSymbol)
+        public Board SetPlayerMovement(Position position, char playerSymbol)
         {
-            if (Board[position.X, position.Y] == ' ')
+            if (GameBoard.Cells[position.X, position.Y] == ' ')
             {
-                Board[position.X, position.Y] = playerSymbol;
-                return Board;
+                GameBoard.Cells[position.X, position.Y] = playerSymbol;
+                return GameBoard;
             }
             throw new NotFreePositionException();
         }
 
-        public bool IsThereWinner(char[,] actualValue)
+        public bool IsThereWinner(Board actualValue)
         {
             return true;
         }
