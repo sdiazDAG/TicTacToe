@@ -10,8 +10,15 @@ namespace TicTacToe
         [Fact]
         public void PlayerOnePlaysFirst()
         {
-            char expectedValue = _game.GetPlayerMovement();
-            Assert.Equal(expectedValue, 'X');
+            var expectedValue = _game.GetPlayerMovement(1, 1);
+            Assert.Equal(expectedValue, new char[3,3] {{' ', ' ', ' '} , {' ', 'X', ' '} , {' ', ' ', ' '}});
+        }
+
+        [Fact]
+        public void PlayerTwoPlaysSecond()
+        {
+            var expectedValue = _game.GetPlayerMovement(0, 0);
+            Assert.Equal(expectedValue, new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
         }
     }
 }
