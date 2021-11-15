@@ -4,18 +4,18 @@ namespace TicTacToe
 {
     public class Game
     {
-        public char[,] Board { get; set; }
+        private char[,] Board { get; set; }
 
         public Game(char[,] board)
         {
             Board = board;
         }
 
-        public char[,] GetPlayerMovement(short x, short y, char playerSymbol)
+        public char[,] GetPlayerMovement(Position position, char playerSymbol)
         {
-            if (Board[x, y] == ' ')
+            if (Board[position.X, position.Y] == ' ')
             {
-                Board[x, y] = playerSymbol;
+                Board[position.X, position.Y] = playerSymbol;
                 return Board;
             }
             throw new NotFreePositionException();

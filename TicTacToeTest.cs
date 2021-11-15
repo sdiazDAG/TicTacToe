@@ -13,7 +13,7 @@ namespace TicTacToe
             var _game = new Game(new char[3, 3] {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}});
             var expectedValue = new char[3, 3] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } };
 
-            var actualValue = _game.GetPlayerMovement(1, 1, 'X');
+            var actualValue = _game.GetPlayerMovement(new Position(1, 1), 'X');
             
             Assert.Equal(expectedValue, actualValue);
         }
@@ -24,7 +24,7 @@ namespace TicTacToe
             var _game = new Game(new char[3, 3] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
             var expectedValue = new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } };
 
-            var actualValue = _game.GetPlayerMovement(0, 0, 'O');
+            var actualValue = _game.GetPlayerMovement(new Position(0, 0), 'O');
             
             Assert.Equal(expectedValue, actualValue);
         }
@@ -35,7 +35,7 @@ namespace TicTacToe
             var _game = new Game(new char[3, 3] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
             var expectedValue = new char[3, 3] {{'O', ' ', 'X'}, {' ', 'X', ' '}, {' ', ' ', ' '}};
 
-            var actualValue = _game.GetPlayerMovement(0, 2, 'X');
+            var actualValue = _game.GetPlayerMovement(new Position(0, 2), 'X');
             
             Assert.Equal(expectedValue, actualValue);
         }
@@ -45,7 +45,7 @@ namespace TicTacToe
         {
             var _game = new Game(new char[3, 3] { { 'O', ' ', 'X' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
 
-            Action action = () => _game.GetPlayerMovement(0, 2, 'O');
+            Action action = () => _game.GetPlayerMovement(new Position(0, 2), 'O');
 
             Assert.Throws<NotFreePositionException>(action);
         }
