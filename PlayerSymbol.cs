@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe
 {
-    public enum GameSymbol
+    public enum PlayerSymbol
     {
         FreeCell = ' ',
         PlayerOneSymbol = 'X',

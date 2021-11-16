@@ -3,13 +3,14 @@ namespace TicTacToe
     public class Game
     {
         private readonly Board gameBoard;
+        private PlayerSymbol gameWinner;
 
         public Game(Board gameBoard)
         {
             this.gameBoard = gameBoard;
         }
 
-        public Board SetPlayerMovement(string position, GameSymbol playerSymbol)
+        public Board SetPlayerMovement(string position, PlayerSymbol playerSymbol)
         {
             return gameBoard.SetPlayerMovement(position, playerSymbol);
         }
@@ -21,6 +22,6 @@ namespace TicTacToe
                                                       gameBoard.BoardDiagonalRightToLeftCompleted()));
         }
 
-        public bool IsFinished() =>  true;
+        public bool IsFinished() => gameBoard.IsBoardCompleted() && !IsThereWinner();
     }
 }

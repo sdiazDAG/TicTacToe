@@ -6,25 +6,25 @@ namespace TicTacToe
     
     public class Board
     {
-        private readonly Dictionary<string, GameSymbol> cells;
+        private readonly Dictionary<string, PlayerSymbol> cells;
 
         public Board()
         {
-            cells = new Dictionary<string, GameSymbol>
+            cells = new Dictionary<string, PlayerSymbol>
             {
-                {new Position(0, 0).ToString(), GameSymbol.FreeCell},
-                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
-                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
-                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
-                {new Position(1, 1).ToString(), GameSymbol.FreeCell},
-                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
-                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
-                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
-                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+                {new Position(0, 0).ToString(), PlayerSymbol.FreeCell},
+                {new Position(0, 1).ToString(), PlayerSymbol.FreeCell},
+                {new Position(0, 2).ToString(), PlayerSymbol.FreeCell},
+                {new Position(1, 0).ToString(), PlayerSymbol.FreeCell},
+                {new Position(1, 1).ToString(), PlayerSymbol.FreeCell},
+                {new Position(1, 2).ToString(), PlayerSymbol.FreeCell},
+                {new Position(2, 0).ToString(), PlayerSymbol.FreeCell},
+                {new Position(2, 1).ToString(), PlayerSymbol.FreeCell},
+                {new Position(2, 2).ToString(), PlayerSymbol.FreeCell}
             };
         }
 
-        public Board(Dictionary<string, GameSymbol> cells)
+        public Board(Dictionary<string, PlayerSymbol> cells)
         {
             this.cells = cells;
         }
@@ -36,7 +36,7 @@ namespace TicTacToe
             return !result.Any();
         }
         
-        public Board SetPlayerMovement(string position, GameSymbol playerSymbol)
+        public Board SetPlayerMovement(string position, PlayerSymbol playerSymbol)
         {
             if (!BoardCellIsEmpty(position)) throw new NotFreePositionException();
             cells[position.ToString()] = playerSymbol;
@@ -46,10 +46,10 @@ namespace TicTacToe
         public bool BoardCellIsEmpty(string position)
         {
             var currentCell = cells
-                .Where(cell => cell.Key == position.ToString())
+                .Where(cell => cell.Key == position)
                 .Select(cell => cell.Value)
                 .FirstOrDefault();
-            return currentCell == GameSymbol.FreeCell;
+            return currentCell == PlayerSymbol.FreeCell;
         } 
         
         public bool BoardDiagonalRightToLeftCompleted()
@@ -96,6 +96,15 @@ namespace TicTacToe
             if (BoardCellIsEmpty(new Position(row, 0).ToString())) return false;
             return cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
                    cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()];
+        }
+
+        public bool IsBoardCompleted()
+        {
+            foreach (KeyValuePair<string, PlayerSymbol> cell in cells)
+            {
+                if (BoardCellIsEmpty(cell.Key)) return false;
+            }
+            return true;
         }
     }
 }
