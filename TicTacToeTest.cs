@@ -24,7 +24,7 @@ namespace TicTacToe
                 {new Position(2, 2).ToString(), PlayerSymbol.FreeCell}
             });
 
-            var currentBoard = game.SetPlayerMovement(new Position(1, 1).ToString(), PlayerSymbol.PlayerOneSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(1, 1), PlayerSymbol.PlayerOneSymbol);
             
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -58,7 +58,7 @@ namespace TicTacToe
                 {new Position(2, 2).ToString(), PlayerSymbol.FreeCell}
             });
 
-            var currentBoard = game.SetPlayerMovement(new Position(0, 0).ToString(), PlayerSymbol.PlayerTwoSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(0, 0), PlayerSymbol.PlayerTwoSymbol);
 
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -92,7 +92,7 @@ namespace TicTacToe
                 {new Position(2, 2).ToString(), PlayerSymbol.FreeCell}
             });
 
-            var currentBoard = game.SetPlayerMovement(new Position(0, 2).ToString(), PlayerSymbol.PlayerOneSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(0, 2), PlayerSymbol.PlayerOneSymbol);
 
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -114,7 +114,7 @@ namespace TicTacToe
             });
             var game = new Game(board);
 
-            Action action = () => game.SetPlayerMovement(new Position(1, 0).ToString(), PlayerSymbol.PlayerTwoSymbol);
+            Action action = () => game.SetPlayerMovement(new Position(1, 0), PlayerSymbol.PlayerTwoSymbol);
 
             Assert.Throws<NotFreePositionException>(action);
         }
@@ -136,11 +136,15 @@ namespace TicTacToe
             });
             var game = new Game(board);
 
-            game.SetPlayerMovement(new Position(2, 0).ToString(), PlayerSymbol.PlayerOneSymbol);
+            game.SetPlayerMovement(new Position(2, 0), PlayerSymbol.PlayerOneSymbol);
 
             var isWinner = game.IsThereWinner();
 
             Assert.True(isWinner);
+
+            var winner = game.WhoIsTheWinner();
+
+            Assert.Equal(PlayerSymbol.PlayerOneSymbol, winner);
         }
 
         [Fact]
@@ -160,11 +164,15 @@ namespace TicTacToe
             });
             var game = new Game(board);
 
-            game.SetPlayerMovement(new Position(2, 0).ToString(), PlayerSymbol.PlayerTwoSymbol);
+            game.SetPlayerMovement(new Position(2, 0), PlayerSymbol.PlayerTwoSymbol);
 
             var isWinner = game.IsThereWinner();
 
             Assert.True(isWinner);
+
+            var winner = game.WhoIsTheWinner();
+
+            Assert.Equal(PlayerSymbol.PlayerTwoSymbol, winner);
         }
 
         [Fact]
@@ -213,6 +221,10 @@ namespace TicTacToe
             var isFinished = game.IsFinished();
 
             Assert.True(isFinished);
+
+            PlayerSymbol? winner = game.WhoIsTheWinner();
+
+            Assert.Null(winner);
         }
     }
 }
