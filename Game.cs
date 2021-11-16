@@ -11,7 +11,7 @@ namespace TicTacToe
             GameBoard = gameBoard;
         }
 
-        public Board SetPlayerMovement(Position position, char playerSymbol)
+        public Board SetPlayerMovement(Position position, GameSymbol playerSymbol)
         {
             if (GameBoard.BoardCellIsEmpty(position))
             {

@@ -10,9 +10,9 @@ namespace TicTacToe
         {
             var _board = new Board();
             var _game = new Game(_board);
-            var expectedValue = new Board(new[,] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var expectedValue = new Board(new GameSymbol[,] { { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
 
-            var actualValue = _game.SetPlayerMovement(new Position(1, 1), 'X');
+            var actualValue = _game.SetPlayerMovement(new Position(1, 1), GameSymbol.PlayerOneSymbol);
             
             Assert.Equal(expectedValue.Cells, actualValue.Cells);
         }
@@ -20,11 +20,11 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoPlaysSecondMovement()
         {
-            var _board = new Board(new[,] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
             var _game = new Game(_board);
-            var expectedValue = new Board(new[,] {{'O', ' ', ' '}, {' ', 'X', ' '}, {' ', ' ', ' '}});
+            var expectedValue = new Board(new GameSymbol[,] {{GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}});
 
-            var actualValue = _game.SetPlayerMovement(new Position(0, 0), 'O');
+            var actualValue = _game.SetPlayerMovement(new Position(0, 0), GameSymbol.PlayerTwoSymbol);
 
             Assert.Equal(expectedValue.Cells, actualValue.Cells);
         }
@@ -32,11 +32,11 @@ namespace TicTacToe
         [Fact]
         public void PlayerOnePlaysThirdMovement()
         {
-            var _board = new Board(new[,] { { 'O', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
             var _game = new Game(_board);
-            var expectedValue = new Board(new char[3, 3] {{'O', ' ', 'X'}, {' ', 'X', ' '}, {' ', ' ', ' '}});
+            var expectedValue = new Board(new GameSymbol[,] {{GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol}, {GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}});
 
-            var actualValue = _game.SetPlayerMovement(new Position(0, 2), 'X');
+            var actualValue = _game.SetPlayerMovement(new Position(0, 2), GameSymbol.PlayerOneSymbol);
 
             Assert.Equal(expectedValue.Cells, actualValue.Cells);
         }
@@ -44,10 +44,10 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoPlaysFourthMovementInNotFreePosition()
         {
-            var _board = new Board(new[,] { { 'O', ' ', 'X' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
             var _game = new Game(_board);
 
-            Action action = () => _game.SetPlayerMovement(new Position(0, 2), 'O');
+            Action action = () => _game.SetPlayerMovement(new Position(0, 2), GameSymbol.PlayerTwoSymbol);
 
             Assert.Throws<NotFreePositionException>(action);
         }
@@ -55,10 +55,10 @@ namespace TicTacToe
         [Fact]
         public void PlayerOneWinGame()
         {
-            var _board = new Board(new[,] { { 'O', ' ', 'X' }, { 'O', 'X', ' ' }, { ' ', ' ', ' ' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
             var _game = new Game(_board);
 
-            var actualValue = _game.SetPlayerMovement(new Position(2, 0), 'X');
+            var actualValue = _game.SetPlayerMovement(new Position(2, 0), GameSymbol.PlayerOneSymbol);
 
             var isWinner = _game.IsThereWinner();
 
@@ -68,10 +68,10 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoWinGame()
         {
-            var _board = new Board(new[,] { { 'O', ' ', 'X' }, { 'O', 'X', ' ' }, { ' ', ' ', 'X' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol } });
             var _game = new Game(_board);
 
-            var actualValue = _game.SetPlayerMovement(new Position(2, 0), 'O');
+            var actualValue = _game.SetPlayerMovement(new Position(2, 0), GameSymbol.PlayerTwoSymbol);
 
             var isWinner = _game.IsThereWinner();
 
@@ -81,7 +81,7 @@ namespace TicTacToe
         [Fact]
         public void GameHaveNotWinner()
         {
-            var _board = new Board(new[,] { { 'O', ' ', 'X' }, { 'O', 'X', ' ' }, { ' ', ' ', 'X' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol } });
             var _game = new Game(_board);
 
             var isWinner = _game.IsThereWinner();
@@ -92,7 +92,7 @@ namespace TicTacToe
         [Fact]
         public void GameFinishedAndHaveNotNotWinner()
         {
-            var _board = new Board(new[,] { { 'X', 'O', 'X' }, { 'O', 'O', 'X' }, { 'O', 'X', 'O' } });
+            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerOneSymbol, GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.PlayerTwoSymbol } });
             var _game = new Game(_board);
 
             var isWinner = _game.IsThereWinner();

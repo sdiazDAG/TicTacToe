@@ -8,25 +8,25 @@ namespace TicTacToe
     {
         public Board()
         {
-            Cells = new[,] {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+            Cells = new[,] {{GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}};
         }
-        public Board(char[,] cells)
+        public Board(GameSymbol[,] cells)
         {
             Cells = cells;
         }
-        public char[,] Cells { get; }
+        public GameSymbol[,] Cells { get; private set; }
 
-        public bool BoardCellIsEmpty(Position position) => (Cells[position.X, position.Y] == (int)GameSymbol.FreeCell);
+        public bool BoardCellIsEmpty(Position position) => (Cells[position.X, position.Y] == GameSymbol.FreeCell);
         public bool BoardDiagonalRightToLeftCompleted()
         {
-            if (Cells[0, 2] == (int) GameSymbol.FreeCell) return false;
+            if (Cells[0, 2] == GameSymbol.FreeCell) return false;
             return Cells[0, 2] == Cells[1, 1] &&
                    Cells[1, 1] == Cells[2, 0];
         }
 
         public bool BoardDiagonalLeftToRightCompleted()
         {
-            if (Cells[0, 0] == (int) GameSymbol.FreeCell) return false;
+            if (Cells[0, 0] == GameSymbol.FreeCell) return false;
             return Cells[0, 0] == Cells[1, 1] &&
                    Cells[1, 1] == Cells[2, 2];
         }
@@ -35,7 +35,7 @@ namespace TicTacToe
         {
             for (var col = 0; col < 3; col++)
             {
-                if (Cells[0, col] == (int) GameSymbol.FreeCell) continue;
+                if (Cells[0, col] == GameSymbol.FreeCell) continue;
                 if (Cells[0, col] == Cells[1, col] &&
                     Cells[1, col] == Cells[2, col])
                     return true;
@@ -47,7 +47,7 @@ namespace TicTacToe
         {
             for (var row = 0; row < 3; row++)
             {
-                if (Cells[row, 0] == (int)GameSymbol.FreeCell) continue;
+                if (Cells[row, 0] == GameSymbol.FreeCell) continue;
                 if (Cells[row, 0] == Cells[row, 1] &&
                     Cells[row, 1] == Cells[row, 2])
                     return true;
