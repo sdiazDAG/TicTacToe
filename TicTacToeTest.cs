@@ -226,5 +226,27 @@ namespace TicTacToe
 
             Assert.Null(winner);
         }
+
+        [Fact]
+        public void GameFinishedThenPlayerCanNotMove()
+        {
+            var board = new Board(new Dictionary<string, PlayerSymbol>
+            {
+                {new Position(0, 0).ToString(), PlayerSymbol.PlayerOneSymbol},
+                {new Position(0, 1).ToString(), PlayerSymbol.PlayerTwoSymbol},
+                {new Position(0, 2).ToString(), PlayerSymbol.PlayerOneSymbol},
+                {new Position(1, 0).ToString(), PlayerSymbol.PlayerTwoSymbol},
+                {new Position(1, 1).ToString(), PlayerSymbol.PlayerTwoSymbol},
+                {new Position(1, 2).ToString(), PlayerSymbol.PlayerOneSymbol},
+                {new Position(2, 0).ToString(), PlayerSymbol.PlayerTwoSymbol},
+                {new Position(2, 1).ToString(), PlayerSymbol.PlayerOneSymbol},
+                {new Position(2, 2).ToString(), PlayerSymbol.PlayerTwoSymbol}
+            });
+            var game = new Game(board);
+
+            Action action = () => game.SetPlayerMovement(new Position(1, 0), PlayerSymbol.PlayerTwoSymbol);
+
+            Assert.Throws<FinishedGameException>(action);
+        }
     }
 }
