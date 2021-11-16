@@ -4,27 +4,27 @@ namespace TicTacToe
 {
     public class Game
     {
-        private Board GameBoard { get; set; }
+        private readonly Board gameBoard;
 
         public Game(Board gameBoard)
         {
-            GameBoard = gameBoard;
+            this.gameBoard = gameBoard;
         }
 
         public Board SetPlayerMovement(Position position, GameSymbol playerSymbol)
         {
-            return GameBoard.SetPlayerMovement(position, playerSymbol);
+            return gameBoard.SetPlayerMovement(position, playerSymbol);
         }
 
         public bool IsThereWinner()
         {
-            if (GameBoard.BoardRowCompleted()) return true;
+            if (gameBoard.BoardRowCompleted()) return true;
 
-            if (GameBoard.BoardColCompleted()) return true;
+            if (gameBoard.BoardColCompleted()) return true;
 
-            if (GameBoard.BoardDiagonalLeftToRightCompleted()) return true;
+            if (gameBoard.BoardDiagonalLeftToRightCompleted()) return true;
 
-            if (GameBoard.BoardDiagonalRightToLeftCompleted()) return true;
+            if (gameBoard.BoardDiagonalRightToLeftCompleted()) return true;
 
             return false;
         }
