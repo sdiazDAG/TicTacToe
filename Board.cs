@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TicTacToe
@@ -5,77 +7,85 @@ namespace TicTacToe
     
     public class Board
     {
-        private readonly GameSymbol[,] cells;
+        private readonly Dictionary<string, GameSymbol> cells;
 
         public Board()
         {
-            cells = new[,] {{GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}};
+            cells = new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            };
         }
-        public Board(GameSymbol[,] cells)
+
+        public Board(Dictionary<string, GameSymbol> cells)
         {
             this.cells = cells;
         }
-
+        
         public override bool Equals(object? obj)
         {
-            return obj is Board newBoard && ToString() == newBoard.ToString();
+            var newBoard = obj as Board;
+            var result = newBoard.cells.Except(this.cells);
+            return !result.Any();
         }
-
-        public override int GetHashCode()
+        
+        public Board SetPlayerMovement(string position, GameSymbol playerSymbol)
         {
-            return ToString().GetHashCode();
+            if (!BoardCellIsEmpty(position)) throw new NotFreePositionException();
+            cells[position.ToString()] = playerSymbol;
+            return this;
         }
-
-        public override string ToString()
+        
+        public bool BoardCellIsEmpty(string position)
         {
-            return string.Join(",", cells.Cast<GameSymbol>());
-        }
-
-        public Board SetPlayerMovement(Position position, GameSymbol playerSymbol)
-        {
-            if (BoardCellIsEmpty(position))
-            {
-                cells[position.X, position.Y] = playerSymbol;
-                return this;
-            }
-
-            throw new NotFreePositionException();
-        }
-
-        public bool BoardCellIsEmpty(Position position) => (cells[position.X, position.Y] == GameSymbol.FreeCell);
+            var currentCell = cells
+                .Where(cell => cell.Key == position.ToString())
+                .Select(cell => cell.Value)
+                .FirstOrDefault();
+            return currentCell == GameSymbol.FreeCell;
+        } 
+        
         public bool BoardDiagonalRightToLeftCompleted()
         {
-            if (cells[0, 2] == GameSymbol.FreeCell) return false;
-            return cells[0, 2] == cells[1, 1] &&
-                   cells[1, 1] == cells[2, 0];
+            if (cells[new Position(0, 2).ToString()] == GameSymbol.FreeCell) return false;
+            return cells[new Position(0, 2).ToString()] == cells[new Position(1, 1).ToString()] &&
+                   cells[new Position(1, 1).ToString()] == cells[new Position(2, 0).ToString()];
         }
-
+        
         public bool BoardDiagonalLeftToRightCompleted()
         {
-            if (cells[0, 0] == GameSymbol.FreeCell) return false;
-            return cells[0, 0] == cells[1, 1] &&
-                   cells[1, 1] == cells[2, 2];
+            if (cells[new Position(0, 0).ToString()] == GameSymbol.FreeCell) return false;
+            return cells[new Position(0, 0).ToString()] == cells[new Position(1, 1).ToString()] &&
+                   cells[new Position(1, 1).ToString()] == cells[new Position(2, 2).ToString()];
         }
-
+        
         public bool BoardColCompleted()
         {
-            for (var col = 0; col < 3; col++)
+            for (short col = 0; col < 3; col++)
             {
-                if (cells[0, col] == GameSymbol.FreeCell) continue;
-                if (cells[0, col] == cells[1, col] &&
-                    cells[1, col] == cells[2, col])
+                if (cells[new Position(0, col).ToString()] == GameSymbol.FreeCell) continue;
+                if (cells[new Position(0, col).ToString()] == cells[new Position(1, col).ToString()] &&
+                    cells[new Position(1, col).ToString()] == cells[new Position(2, col).ToString()])
                     return true;
             }
             return false;
         }
-
+        
         public bool BoardRowCompleted()
         {
-            for (var row = 0; row < 3; row++)
+            for (short row = 0; row < 3; row++)
             {
-                if (cells[row, 0] == GameSymbol.FreeCell) continue;
-                if (cells[row, 0] == cells[row, 1] &&
-                    cells[row, 1] == cells[row, 2])
+                if (cells[new Position(row, 0).ToString()] == GameSymbol.FreeCell) continue;
+                if (cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
+                    cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()])
                     return true;
             }
             return false;

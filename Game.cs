@@ -11,7 +11,7 @@ namespace TicTacToe
             this.gameBoard = gameBoard;
         }
 
-        public Board SetPlayerMovement(Position position, GameSymbol playerSymbol)
+        public Board SetPlayerMovement(string position, GameSymbol playerSymbol)
         {
             return gameBoard.SetPlayerMovement(position, playerSymbol);
         }

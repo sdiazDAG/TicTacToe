@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace TicTacToe
@@ -8,11 +9,22 @@ namespace TicTacToe
         [Fact]
         public void PlayerOnePlaysFirstMovement()
         {
-            var _board = new Board();
-            var _game = new Game(_board);
-            var expectedBoard = new Board(new GameSymbol[,] { { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
+            var board = new Board();
+            var game = new Game(board);
+            var expectedBoard = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
 
-            var currentBoard = _game.SetPlayerMovement(new Position(1, 1), GameSymbol.PlayerOneSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol);
             
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -20,11 +32,33 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoPlaysSecondMovement()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
-            var _game = new Game(_board);
-            var expectedBoard = new Board(new GameSymbol[,] {{GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}});
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
+            var game = new Game(board);
+            var expectedBoard = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
 
-            var currentBoard = _game.SetPlayerMovement(new Position(0, 0), GameSymbol.PlayerTwoSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol);
 
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -32,11 +66,33 @@ namespace TicTacToe
         [Fact]
         public void PlayerOnePlaysThirdMovement()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
-            var _game = new Game(_board);
-            var expectedBoard = new Board(new GameSymbol[,] {{GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol}, {GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell}, {GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell}});
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
+            var game = new Game(board);
+            var expectedBoard = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
 
-            var currentBoard = _game.SetPlayerMovement(new Position(0, 2), GameSymbol.PlayerOneSymbol);
+            var currentBoard = game.SetPlayerMovement(new Position(0, 2).ToString(), GameSymbol.PlayerOneSymbol);
 
             Assert.Equal(expectedBoard, currentBoard);
         }
@@ -44,10 +100,21 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoPlaysFourthMovementInNotFreePosition()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
-            var _game = new Game(_board);
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
+            var game = new Game(board);
 
-            Action action = () => _game.SetPlayerMovement(new Position(0, 2), GameSymbol.PlayerTwoSymbol);
+            Action action = () => game.SetPlayerMovement(new Position(1, 0).ToString(), GameSymbol.PlayerTwoSymbol);
 
             Assert.Throws<NotFreePositionException>(action);
         }
@@ -55,12 +122,23 @@ namespace TicTacToe
         [Fact]
         public void PlayerOneWinGame()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.FreeCell } });
-            var _game = new Game(_board);
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
+            var game = new Game(board);
 
-            var currentBoard = _game.SetPlayerMovement(new Position(2, 0), GameSymbol.PlayerOneSymbol);
+            game.SetPlayerMovement(new Position(2, 0).ToString(), GameSymbol.PlayerOneSymbol);
 
-            var isWinner = _game.IsThereWinner();
+            var isWinner = game.IsThereWinner();
 
             Assert.True(isWinner);
         }
@@ -68,12 +146,23 @@ namespace TicTacToe
         [Fact]
         public void PlayerTwoWinGame()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol } });
-            var _game = new Game(_board);
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.FreeCell},
+                {new Position(1, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 2).ToString(), GameSymbol.PlayerOneSymbol}
+            });
+            var game = new Game(board);
 
-            _game.SetPlayerMovement(new Position(2, 0), GameSymbol.PlayerTwoSymbol);
+            game.SetPlayerMovement(new Position(2, 0).ToString(), GameSymbol.PlayerTwoSymbol);
 
-            var isWinner = _game.IsThereWinner();
+            var isWinner = game.IsThereWinner();
 
             Assert.True(isWinner);
         }
@@ -81,10 +170,21 @@ namespace TicTacToe
         [Fact]
         public void GameHaveNotWinner()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerTwoSymbol, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.FreeCell }, { GameSymbol.FreeCell, GameSymbol.FreeCell, GameSymbol.PlayerOneSymbol } });
-            var _game = new Game(_board);
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.FreeCell},
+                {new Position(0, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 0).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(2, 0).ToString(), GameSymbol.FreeCell},
+                {new Position(2, 1).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(2, 2).ToString(), GameSymbol.FreeCell}
+            });
+            var game = new Game(board);
 
-            var isWinner = _game.IsThereWinner();
+            var isWinner = game.IsThereWinner();
 
             Assert.False(isWinner);
         }
@@ -92,14 +192,25 @@ namespace TicTacToe
         [Fact]
         public void GameFinishedAndHaveNotNotWinner()
         {
-            var _board = new Board(new GameSymbol[,] { { GameSymbol.PlayerOneSymbol, GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol }, { GameSymbol.PlayerTwoSymbol, GameSymbol.PlayerOneSymbol, GameSymbol.PlayerTwoSymbol } });
-            var _game = new Game(_board);
+            var board = new Board(new Dictionary<string, GameSymbol>
+            {
+                {new Position(0, 0).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(0, 1).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(0, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(1, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(1, 1).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(1, 2).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(2, 0).ToString(), GameSymbol.PlayerTwoSymbol},
+                {new Position(2, 1).ToString(), GameSymbol.PlayerOneSymbol},
+                {new Position(2, 2).ToString(), GameSymbol.PlayerTwoSymbol}
+            });
+            var game = new Game(board);
 
-            var isWinner = _game.IsThereWinner();
+            var isWinner = game.IsThereWinner();
 
             Assert.False(isWinner);
 
-            var isFinished = _game.IsFinished();
+            var isFinished = game.IsFinished();
 
             Assert.True(isFinished);
         }
