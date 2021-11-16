@@ -13,13 +13,7 @@ namespace TicTacToe
 
         public Board SetPlayerMovement(Position position, GameSymbol playerSymbol)
         {
-            if (GameBoard.BoardCellIsEmpty(position))
-            {
-                GameBoard.Cells[position.X, position.Y] = playerSymbol;
-                return GameBoard;
-            }
-
-            throw new NotFreePositionException();
+            return GameBoard.SetPlayerMovement(position, playerSymbol);
         }
 
         public bool IsThereWinner()
