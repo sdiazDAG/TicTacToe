@@ -77,5 +77,16 @@ namespace TicTacToe
 
             Assert.True(isWinner);
         }
+
+        [Fact]
+        public void GameHaveNotWinner()
+        {
+            var _board = new Board(new[,] { { 'O', ' ', 'X' }, { 'O', 'X', ' ' }, { ' ', ' ', 'X' } });
+            var _game = new Game(_board);
+
+            var isWinner = _game.IsThereWinner();
+
+            Assert.False(isWinner);
+        }
     }
 }
