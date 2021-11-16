@@ -100,11 +100,7 @@ namespace TicTacToe
 
         public bool IsBoardCompleted()
         {
-            foreach (KeyValuePair<string, PlayerSymbol> cell in cells)
-            {
-                if (BoardCellIsEmpty(cell.Key)) return false;
-            }
-            return true;
+            return cells.All(cell => !BoardCellIsEmpty(cell.Key));
         }
     }
 }
