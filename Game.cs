@@ -34,5 +34,7 @@ namespace TicTacToe
 
             return false;
         }
+
+        public bool IsFinished() =>  true;
     }
 }
