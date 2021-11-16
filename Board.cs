@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -79,10 +78,8 @@ namespace TicTacToe
         private bool IsColumnCompleted(short col)
         {
             if (BoardCellIsEmpty(new Position(0, col).ToString())) return false;
-            if (cells[new Position(0, col).ToString()] == cells[new Position(1, col).ToString()] &&
-                cells[new Position(1, col).ToString()] == cells[new Position(2, col).ToString()])
-                return true;
-            return false;
+            return cells[new Position(0, col).ToString()] == cells[new Position(1, col).ToString()] &&
+                   cells[new Position(1, col).ToString()] == cells[new Position(2, col).ToString()];
         }
 
         public bool IsThereBoardRowCompleted()
@@ -97,10 +94,8 @@ namespace TicTacToe
         private bool IsRowCompleted(short row)
         {
             if (BoardCellIsEmpty(new Position(row, 0).ToString())) return false;
-            if (cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
-                cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()])
-                return true;
-            return false;
+            return cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
+                   cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()];
         }
     }
 }
