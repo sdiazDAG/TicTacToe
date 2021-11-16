@@ -8,7 +8,7 @@ namespace TicTacToe
         [Fact]
         public void PlayerOnePlaysFirstMovement()
         {
-            var _board = new Board(new[,] {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}});
+            var _board = new Board();
             var _game = new Game(_board);
             var expectedValue = new Board(new[,] { { ' ', ' ', ' ' }, { ' ', 'X', ' ' }, { ' ', ' ', ' ' } });
 
