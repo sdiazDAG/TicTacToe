@@ -55,39 +55,51 @@ namespace TicTacToe
         
         public bool BoardDiagonalRightToLeftCompleted()
         {
-            if (cells[new Position(0, 2).ToString()] == GameSymbol.FreeCell) return false;
+            if (BoardCellIsEmpty(new Position(0, 2).ToString())) return false;
             return cells[new Position(0, 2).ToString()] == cells[new Position(1, 1).ToString()] &&
                    cells[new Position(1, 1).ToString()] == cells[new Position(2, 0).ToString()];
         }
         
         public bool BoardDiagonalLeftToRightCompleted()
         {
-            if (cells[new Position(0, 0).ToString()] == GameSymbol.FreeCell) return false;
+            if (BoardCellIsEmpty(new Position(0, 0).ToString())) return false;
             return cells[new Position(0, 0).ToString()] == cells[new Position(1, 1).ToString()] &&
                    cells[new Position(1, 1).ToString()] == cells[new Position(2, 2).ToString()];
         }
         
-        public bool BoardColCompleted()
+        public bool IsThereBoardColumnCompleted()
         {
             for (short col = 0; col < 3; col++)
             {
-                if (cells[new Position(0, col).ToString()] == GameSymbol.FreeCell) continue;
-                if (cells[new Position(0, col).ToString()] == cells[new Position(1, col).ToString()] &&
-                    cells[new Position(1, col).ToString()] == cells[new Position(2, col).ToString()])
-                    return true;
+                if (IsColumnCompleted(col)) return true;
             }
             return false;
         }
-        
-        public bool BoardRowCompleted()
+
+        private bool IsColumnCompleted(short col)
+        {
+            if (BoardCellIsEmpty(new Position(0, col).ToString())) return false;
+            if (cells[new Position(0, col).ToString()] == cells[new Position(1, col).ToString()] &&
+                cells[new Position(1, col).ToString()] == cells[new Position(2, col).ToString()])
+                return true;
+            return false;
+        }
+
+        public bool IsThereBoardRowCompleted()
         {
             for (short row = 0; row < 3; row++)
             {
-                if (cells[new Position(row, 0).ToString()] == GameSymbol.FreeCell) continue;
-                if (cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
-                    cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()])
-                    return true;
+                if (IsRowCompleted(row)) return true;
             }
+            return false;
+        }
+
+        private bool IsRowCompleted(short row)
+        {
+            if (BoardCellIsEmpty(new Position(row, 0).ToString())) return false;
+            if (cells[new Position(row, 0).ToString()] == cells[new Position(row, 1).ToString()] &&
+                cells[new Position(row, 1).ToString()] == cells[new Position(row, 2).ToString()])
+                return true;
             return false;
         }
     }

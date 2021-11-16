@@ -18,15 +18,9 @@ namespace TicTacToe
 
         public bool IsThereWinner()
         {
-            if (gameBoard.BoardRowCompleted()) return true;
-
-            if (gameBoard.BoardColCompleted()) return true;
-
-            if (gameBoard.BoardDiagonalLeftToRightCompleted()) return true;
-
-            if (gameBoard.BoardDiagonalRightToLeftCompleted()) return true;
-
-            return false;
+            return gameBoard.IsThereBoardRowCompleted() || (gameBoard.IsThereBoardColumnCompleted() ||
+                                                     (gameBoard.BoardDiagonalLeftToRightCompleted() ||
+                                                      gameBoard.BoardDiagonalRightToLeftCompleted()));
         }
 
         public bool IsFinished() =>  true;
